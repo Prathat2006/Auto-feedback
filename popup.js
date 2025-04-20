@@ -2,7 +2,6 @@ const DEFAULT_SETTINGS = {
     recorded_quality: "4",
     recorded_engagement: "Very engaging and clear",
     recorded_understanding: "Yes, very much",
-    // doubt_sessions_attended: "Did not attend", // removed
     doubt_helpfulness: "4",
     doubts_addressed: "Did not ask any doubts",
     ta_support: "Did not interact",
@@ -31,11 +30,6 @@ const RADIO_OPTIONS = {
         "Did not watch"
     ],
     recorded_understanding: ["Not at all","Not really", "Somewhat", "Yes, very much"],
-    // doubt_sessions_attended: [
-    //     "Did not attend",
-    //     "Attended some",
-    //     "Attended all"
-    // ], // removed
     doubt_helpfulness: ["1", "2", "3", "4", "5"],
     doubts_addressed: [
         "Yes, all my doubts were cleared",
