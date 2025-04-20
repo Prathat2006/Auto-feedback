@@ -26,7 +26,7 @@ That's it! The extension is now installed and ready to use.
 - **Auto-Submit Option:** Enable auto-submit to send feedback automatically (5 seconds after opening the form).
 - **Smart Session Selection:** Automatically selects the attended session based on the course name.
 - **Supports All Input Types:** Handles radio buttons, text areas, and more.
-- **Modern UI:** Clean, dark-themed popup with a stylish toggle switch.
+- **Modern UI:** Clean, dark-themed popup.
 - **Safe & Secure:** Only runs on feedback forms, stores your settings locally.
 
 ---
@@ -55,7 +55,7 @@ That's it! The extension is now installed and ready to use.
 
 - **Auto-Submit:** When enabled, the form will be submitted automatically after 5 seconds. Make sure your answers are correct before enabling this!
 - **Course-Specific Logic:** The extension detects the course name and selects the appropriate session for "Which session did you attend?" questions.
-- **Works on Most LMS Feedback Forms:** The extension is designed for typical LMS feedback layouts. If your form is different, you may need to adjust the matching patterns in `content.js`.
+- **Works on IITJ-Futurense LMS Feedback Forms:** The extension is specifically designed for IITJ-Futurense LMS feedback layouts. If your form is different, you may need to adjust the matching patterns in `content.js`.
 
 ---
 
