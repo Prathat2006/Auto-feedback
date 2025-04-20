@@ -1,24 +1,442 @@
-body {
-    font-family: Arial, sans-serif;
-    padding: 10px;
-    width: 300px;
+:root {
+    --bg-primary: #1e1e2e;
+    --bg-secondary: #2a2a3a;
+    --accent: #bd93f9;
+    --text-primary: #f8f8f2;
+    --text-secondary: #d7d7db;
+    --border: #44475a;
+    --success: #50fa7b;
+    --hover: #6c71c4;
+    --shadow: rgba(0, 0, 0, 0.3);
   }
-  label {
-    display: block;
-    margin-top: 10px;
-  }
-  input, textarea {
-    width: 100%;
-    margin-top: 5px;
-    padding: 5px;
+  
+  * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
   }
-  button {
-    margin-top: 15px;
-    padding: 10px;
+  
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    padding: 3rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    font-size: 16px;
+    min-width: 800px;
+    min-height: 600px;
+  }
+  
+  h1 {
+    color: var(--accent);
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2.6rem;
+    text-shadow: 0 2px 5px var(--shadow);
+  }
+  
+  #form {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+  }
+  
+  label[for] {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: var(--accent);
+    font-size: 1.3rem;
+  }
+  
+  textarea {
     width: 100%;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
+    min-height: 140px;
+    padding: 1.2rem;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 1.2rem;
+    resize: vertical;
+    transition: border-color 0.3s;
+  }
+  
+  textarea:focus {
+    border-color: var(--accent);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(189, 147, 249, 0.3);
+  }
+  
+  /* Base style for radio groups */
+  [id$="_group"] {
+    background-color: var(--bg-secondary);
+    border-radius: 10px;
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+  }
+  
+  /* Style for horizontal radio groups (numeric ratings and yes/no) */
+  [id^="recorded_quality_group"],
+  [id^="doubt_helpfulness_group"],
+  [id^="ai_rating_group"],
+  [id^="overall_satisfaction_group"],
+  [id^="ai_attended_group"] {
+    display: flex;
+    flex-direction: row;
+    gap: 1.2rem;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+  
+  /* Style for vertical radio groups (text options) */
+  [id^="recorded_engagement_group"],
+  [id^="recorded_understanding_group"],
+  [id^="doubts_addressed_group"],
+  [id^="ta_support_group"],
+  [id^="ai_insights_group"],
+  [id^="ai_confidence_group"] {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  
+  /* Hide default radio buttons */
+  input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* Custom radio button styles */
+  input[type="radio"] + label {
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
     cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+  }
+  
+  /* Horizontal radio buttons */
+  [id^="recorded_quality_group"] input[type="radio"] + label,
+  [id^="doubt_helpfulness_group"] input[type="radio"] + label,
+  [id^="ai_rating_group"] input[type="radio"] + label,
+  [id^="overall_satisfaction_group"] input[type="radio"] + label,
+  [id^="ai_attended_group"] input[type="radio"] + label {
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+    min-width: 70px;
+    border: 1px solid var(--border);
+    background-color: var(--bg-primary);
+  }
+  
+  /* Vertical radio buttons */
+  [id^="recorded_engagement_group"] input[type="radio"] + label,
+  [id^="recorded_understanding_group"] input[type="radio"] + label,
+  [id^="doubts_addressed_group"] input[type="radio"] + label,
+  [id^="ta_support_group"] input[type="radio"] + label,
+  [id^="ai_insights_group"] input[type="radio"] + label,
+  [id^="ai_confidence_group"] input[type="radio"] + label {
+    padding-left: 3.5rem;
+    font-size: 1.15rem;
+  }
+  
+  /* Circle for vertical radio buttons */
+  [id^="recorded_engagement_group"] input[type="radio"] + label::before,
+  [id^="recorded_understanding_group"] input[type="radio"] + label::before,
+  [id^="doubts_addressed_group"] input[type="radio"] + label::before,
+  [id^="ta_support_group"] input[type="radio"] + label::before,
+  [id^="ai_insights_group"] input[type="radio"] + label::before,
+  [id^="ai_confidence_group"] input[type="radio"] + label::before {
+    content: '';
+    position: absolute;
+    left: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    background-color: var(--bg-primary);
+    transition: all 0.2s;
+  }
+  
+  /* Checked state for vertical radio buttons */
+  [id^="recorded_engagement_group"] input[type="radio"]:checked + label::before,
+  [id^="recorded_understanding_group"] input[type="radio"]:checked + label::before,
+  [id^="doubts_addressed_group"] input[type="radio"]:checked + label::before,
+  [id^="ta_support_group"] input[type="radio"]:checked + label::before,
+  [id^="ai_insights_group"] input[type="radio"]:checked + label::before,
+  [id^="ai_confidence_group"] input[type="radio"]:checked + label::before {
+    border-color: var(--accent);
+    background-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(189, 147, 249, 0.3);
+  }
+  
+  /* Hover state for all radio buttons */
+  input[type="radio"] + label:hover {
+    color: var(--text-primary);
+    background-color: rgba(189, 147, 249, 0.15);
+  }
+  
+  /* Selected state for horizontal radio buttons */
+  [id^="recorded_quality_group"] input[type="radio"]:checked + label,
+  [id^="doubt_helpfulness_group"] input[type="radio"]:checked + label,
+  [id^="ai_rating_group"] input[type="radio"]:checked + label,
+  [id^="overall_satisfaction_group"] input[type="radio"]:checked + label,
+  [id^="ai_attended_group"] input[type="radio"]:checked + label {
+    background-color: var(--accent);
+    color: var(--bg-primary);
+    font-weight: bold;
+    border-color: var(--accent);
+    box-shadow: 0 0 12px rgba(189, 147, 249, 0.6);
+  }
+  
+  /* Selected state for vertical radio buttons */
+  [id^="recorded_engagement_group"] input[type="radio"]:checked + label,
+  [id^="recorded_understanding_group"] input[type="radio"]:checked + label,
+  [id^="doubts_addressed_group"] input[type="radio"]:checked + label,
+  [id^="ta_support_group"] input[type="radio"]:checked + label,
+  [id^="ai_insights_group"] input[type="radio"]:checked + label,
+  [id^="ai_confidence_group"] input[type="radio"]:checked + label {
+    color: var(--text-primary);
+    font-weight: bold;
+  }
+  
+  /* Save button */
+  #save {
+    display: block;
+    width: 250px;
+    margin: 3rem auto;
+    padding: 1.2rem 2rem;
+    background-color: var(--accent);
+    color: var(--bg-primary);
+    border: none;
+    border-radius: 10px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 5px 8px var(--shadow);
+  }
+  
+  #save:hover {
+    background-color: var(--hover);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px var(--shadow);
+  }
+  
+  #save:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 5px var(--shadow);
+  }
+  
+  /* Status message */
+  #status {
+    text-align: center;
+    height: 30px;
+    color: var(--success);
+    font-weight: bold;
+    margin-top: 1.5rem;
+    font-size: 1.2rem;
+  }
+  
+  /* Add some breathing room at the bottom */
+  body::after {
+    content: '';
+    display: block;
+    height: 3rem;
+  }
+  
+  /* Ensure numeric options stay in one line */
+  @media (min-width: 768px) {
+    [id^="recorded_quality_group"],
+    [id^="doubt_helpfulness_group"],
+    [id^="ai_rating_group"],
+    [id^="overall_satisfaction_group"],
+    [id^="ai_attended_group"] {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+    }
+    
+    [id^="recorded_quality_group"] input[type="radio"] + label,
+    [id^="doubt_helpfulness_group"] input[type="radio"] + label,
+    [id^="ai_rating_group"] input[type="radio"] + label,
+    [id^="overall_satisfaction_group"] input[type="radio"] + label,
+    [id^="ai_attended_group"] input[type="radio"] + label {
+      width: 100%;
+      flex: 1;
+    }
+  }
+  
+  /* Responsive adjustments - still ensure minimal size for popup */
+  @media (max-width: 850px) {
+    body {
+      padding: 2rem;
+      min-width: 700px;
+    }
+    
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 2.5rem;
+    }
+    
+    #form {
+      gap: 2rem;
+    }
+    
+    textarea {
+      font-size: 1.1rem;
+      padding: 1rem;
+    }
+    
+    input[type="radio"] + label {
+      font-size: 1.1rem;
+    }
+  
+    [id^="recorded_quality_group"],
+    [id^="doubt_helpfulness_group"],
+    [id^="ai_rating_group"],
+    [id^="overall_satisfaction_group"],
+    [id^="ai_attended_group"] {
+      padding-bottom: 1.5rem;
+    }
+  }
+
+  .toggle-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background-color: var(--bg-secondary);
+  }
+  
+  .toggle-label {
+    color: var(--accent);
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+  
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 24px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--border);
+    transition: 0.4s;
+    border-radius: 34px;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--bg-primary);
+    transition: 0.4s;
+    border-radius: 50%;
+  }
+  
+  .switch input:checked + .slider {
+    background-color: var(--accent);
+  }
+  
+  .switch input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+
+  /* Custom toggle for auto-submit */
+  .toggle-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background-color: var(--bg-secondary);
+  }
+  
+  .toggle-label {
+    color: var(--accent);
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-left: 1.5rem;
+  }
+  
+  input[type="checkbox"].auto-submit-toggle {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: relative;
+    margin: 0;
+    cursor: pointer;
+    outline: none;
+    height: 3em;
+    width: 7em;
+    background-color: #000000;
+    transform: skewX(-7deg);
+    transition: 0.3s;
+    border-radius: 0.3em;
+    box-shadow: 0 2.5em 4.6em rgba(0, 0, 0, 0.1);
+    display: block;
+  }
+  input[type="checkbox"].auto-submit-toggle:before {
+    font-size: 1.2em;
+    content: "OFF";
+    position: absolute;
+    width: 2.9em;
+    height: 1.7em;
+    background-color: #2d2936;
+    color: #a0a0a0;
+    top: 0.4em;
+    left: 0.4em;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border-radius: 0.2em;
+  }
+  input[type="checkbox"].auto-submit-toggle:checked {
+    background: linear-gradient(135deg, #8175fe, #89befe);
+  }
+  input[type="checkbox"].auto-submit-toggle:checked:before {
+    content: "ON";
+    left: 2.4em; /* was 3.7em, adjust for better centering */
+    color: #89befe;
   }

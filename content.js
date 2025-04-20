@@ -26,6 +26,23 @@ chrome.storage.sync.get(null, settings => {
     { key: "comments", pattern: /additional comments or suggestions/i }
   ];
 
+  // Map course keywords to session option labels
+  const COURSE_TO_SESSION = [
+    { keyword: /basics? of data analytics/i, label: "Basics of Data Analytics" },
+    { keyword: /linear algebra.*numerical analysis/i, label: "Linear Algebra and Numerical Analysis" },
+    { keyword: /foundations? of statistics? and probability/i, label: "Foundations of Statistics and Probability" },
+    { keyword: /algorithmic thinking/i, label: "Algorithmic Thinking and Its Applications" }
+  ];
+
+  // Extract course title from breadcrumb
+  function getCourseTitleFromBreadcrumb() {
+    const breadcrumb = document.querySelector('nav[aria-label="Navigation bar"] .breadcrumb-item a[title]');
+    if (breadcrumb) {
+      return breadcrumb.getAttribute('title') || breadcrumb.textContent || "";
+    }
+    return "";
+  }
+
   function selectRadioByValue(container, value) {
     const radios = container.querySelectorAll('input[type="radio"]');
     for (let radio of radios) {
@@ -62,6 +79,23 @@ chrome.storage.sync.get(null, settings => {
       if (q.pattern.test(questionText)) {
         const container = legend.closest("fieldset");
         if (!container) return;
+        // Special handling for "Which doubt-clearing sessions did you attend this week?"
+        if (/sessions did you attend/i.test(questionText)) {
+          const courseTitle = getCourseTitleFromBreadcrumb();
+          let matchedLabel = null;
+          for (const mapping of COURSE_TO_SESSION) {
+            if (mapping.keyword.test(courseTitle)) {
+              matchedLabel = mapping.label;
+              break;
+            }
+          }
+          // If matched, select the corresponding option
+          if (matchedLabel) {
+            selectRadioByLabel(container, matchedLabel);
+            return;
+          }
+        }
+        // Default behavior
         selectRadioByLabel(container, settings[q.key] || "Yes");
       }
     }
@@ -78,4 +112,15 @@ chrome.storage.sync.get(null, settings => {
       }
     }
   });
+  if (settings.auto_submit) {
+    setTimeout(() => {
+      const submitBtn = document.querySelector('input[type="submit"]#id_savevalues');
+      if (submitBtn) {
+        submitBtn.click();
+      } else {
+        console.warn("Submit button not found!");
+      }
+    }, 20000); // 20 seconds
+  }
+  
 });

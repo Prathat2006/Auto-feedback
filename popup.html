@@ -1,20 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Feedback Settings</title>
-  <style>
-    body { font-family: sans-serif; padding: 10px; width: 350px; }
-    label { font-weight: bold; margin-top: 10px; display: block; }
-    input, textarea { width: 100%; margin-bottom: 10px; }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h3>Customize Feedback Responses</h3>
-
-  <div id="form"></div>
-  <button id="save">Save Settings</button>
-  <div id="status" style="margin-top: 10px; font-size: 12px;"></div>
-
+  <h1>Feedback Settings</h1>
+  <form id="form"></form>
+  <button id="save">Save</button>
+  
+  <div id="status"></div>
   <script src="popup.js"></script>
 </body>
 </html>
