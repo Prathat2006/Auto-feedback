@@ -120,7 +120,7 @@ chrome.storage.sync.get(null, settings => {
       } else {
         console.warn("Submit button not found!");
       }
-    }, 20000); // 20 seconds
+    }, 5000); // 5 seconds
   }
   
 });
