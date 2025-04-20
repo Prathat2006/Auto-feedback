@@ -1,51 +1,67 @@
-📚 LMS Feedback Autofiller
-Automatically fill out LMS feedback forms with personalized answers and optionally auto-submit them — saving your time and sanity during evaluation weeks.
+# 📚 LMS Feedback Autofiller
 
-⚙️ Features
-Customizable responses for all feedback questions
+**LMS Feedback Autofiller** is a Chrome extension that automatically fills out your LMS feedback forms with your personalized answers and can even auto-submit them for you. Save time, avoid repetitive typing, and never miss a feedback deadline again!
 
-Stylish and intuitive settings popup
+---
 
-Toggle for Auto-Submit (5s after opening the form)
+## 🚀 Installation
 
-Supports radio buttons, text areas, and adaptive course-specific logic
+1. **Clone or Download the Extension**
+   - Download this repository as a ZIP file.
+   - Extract it to a folder on your computer.
 
-Dark theme and clean UI ✨
+2. **Load the Extension into Chrome**
+   - Open `chrome://extensions/` in your browser.
+   - Enable **Developer mode** (toggle in the top right).
+   - Click **Load unpacked**.
+   - Select the folder where you extracted the extension.
 
-🚀 Installation
-Clone or Download the Extension
+That's it! The extension is now installed and ready to use.
 
-Download this repository as a ZIP
+---
 
-Extract it to a folder on your computer
+## ⚙️ Features
 
-Load Extension into Chrome
+- **Customizable Responses:** Set your own answers for all feedback questions.
+- **Auto-Submit Option:** Enable auto-submit to send feedback automatically (5 seconds after opening the form).
+- **Smart Session Selection:** Automatically selects the attended session based on the course name.
+- **Supports All Input Types:** Handles radio buttons, text areas, and more.
+- **Modern UI:** Clean, dark-themed popup with a stylish toggle switch.
+- **Safe & Secure:** Only runs on feedback forms, stores your settings locally.
 
-Open chrome://extensions/
+---
 
-Enable Developer mode (top right)
+## 🧑‍💻 How to Use
 
-Click Load unpacked
+1. **Open the Extension**
+   - Click the extension icon in your browser toolbar.
 
-Select the extracted folder
+2. **Customize Your Answers**
+   - The popup will show all feedback questions.
+   - Edit any answer to your liking.
+   - Use the toggle to enable or disable auto-submit.
 
-✅ You're all set!
+3. **Save Your Settings**
+   - Click the **Save** button. Your preferences are stored for next time.
 
-🧪 How to Use
-Click the extension icon in your browser.
+4. **Fill Out Feedback**
+   - Go to your LMS feedback form.
+   - The extension will automatically fill in your answers.
+   - If auto-submit is enabled, the form will be submitted **5 seconds** after opening (be cautious!).
 
-A settings page will appear with all the feedback options.
+---
 
-Customize any responses you’d like — your changes are saved.
+## 📝 Notes
 
-Toggle Auto-Submit ON if you want the form to submit automatically (⚠️ 5 seconds after loading).
+- **Auto-Submit:** When enabled, the form will be submitted automatically after 5 seconds. Make sure your answers are correct before enabling this!
+- **Course-Specific Logic:** The extension detects the course name and selects the appropriate session for "Which session did you attend?" questions.
+- **Works on Most LMS Feedback Forms:** The extension is designed for typical LMS feedback layouts. If your form is different, you may need to adjust the matching patterns in `content.js`.
 
-Visit the LMS feedback form — it will autofill with your selected preferences.
+---
 
-🧰 File Structure
-bash
-Copy
-Edit
+## 🗂️ File Structure
+
+```bash
 📁 LMS Feedback Autofiller/
 ├── manifest.json         # Chrome extension metadata
 ├── popup.html            # Extension popup UI
@@ -53,34 +69,29 @@ Edit
 ├── style.css             # Custom styles and toggle switch design
 ├── content.js            # Autofill logic for LMS form
 ├── icon.png              # Extension icon (optional)
-💡 Notes
-The extension works on any page (<all_urls> is enabled), but it activates logic only when the form structure matches expected LMS feedback layouts.
+```
 
-If Auto-Submit is enabled, it will try submitting the form 5 seconds after loading — be careful!
+---
 
-Course-specific options (like “Which sessions did you attend?”) are auto-selected based on the course name in the page.
+## ✅ Permissions
 
-🛠 Customize or Extend
-Want to change default answers or add more logic?
-
-Modify the defaults in popup.js → DEFAULT_SETTINGS
-
-Update matching patterns in content.js to adapt to different LMS questions
-
-✅ Permissions
 This extension uses:
 
-storage: to save your feedback settings
-
-scripting: to interact with the current tab
-
-activeTab: to access the current webpage
+- **storage:** to save your feedback settings
+- **scripting:** to interact with the current tab
+- **activeTab:** to access the current webpage
 
 All securely managed and scoped.
 
-📷 Screenshots
+---
+
+## 📷 Screenshots
+
 Coming soon! Or add your own 🙂
 
-📄 License
+---
+
+## 📄 License
+
 MIT License — feel free to modify and enhance.
 
