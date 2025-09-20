@@ -112,6 +112,10 @@ chrome.storage.sync.get(null, settings => {
       }
     }
   });
+
+  // Use saved delay (seconds) or default to 5 seconds, convert to ms
+  const auto_submit_delay_ms = (typeof settings.auto_submit_delay === "number" ? settings.auto_submit_delay : 5) * 1000;
+
   if (settings.auto_submit) {
     setTimeout(() => {
       const submitBtn = document.querySelector('input[type="submit"]#id_savevalues');
@@ -120,7 +124,7 @@ chrome.storage.sync.get(null, settings => {
       } else {
         console.warn("Submit button not found!");
       }
-    }, 5000); // 5 seconds
+    }, auto_submit_delay_ms);
   }
   
 });

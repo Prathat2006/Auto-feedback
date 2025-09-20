@@ -8,11 +8,19 @@
 <body>
   <h1>Feedback Settings</h1>
   <form id="form"></form>
-  <button id="save">Save</button>
+
   
   <div id="status"></div>
+  <!-- NEW: auto-submit delay control (seconds) -->
+  <div style="text-align:center; margin-top:1rem;">
+    <label for="auto_submit_delay" style="color:#bd93f9; font-weight:bold; margin-right:0.5rem;">
+      Auto-Submit Delay (seconds):
+    </label>
+    <input id="auto_submit_delay" type="number" min="1" step="1" value="5" style="width:5rem; padding:0.25rem; border-radius:6px; border:1px solid #44475a; background:#2a2a3a; color:#f8f8f2;" />
+  </div>
+  <button id="save">Save</button>
   <div style="text-align:center; color:#ffb86c; margin-top:1rem; font-size:1.05em;">
-    <b>Note:</b> If auto-submit is enabled, feedback will be auto-submitted <u>5 seconds</u> after opening. Be cautious!
+    <b>Note:</b> If auto-submit is enabled, feedback will be auto-submitted <u>after the configured delay</u> once the page is opened. Be cautious!
   </div>
   <script src="popup.js"></script>
 </body>

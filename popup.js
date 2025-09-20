@@ -17,6 +17,7 @@ const DEFAULT_SETTINGS = {
     next_week: "More live examples would help.",
     comments: "Everything was great, keep going!",
     auto_submit: false,
+    auto_submit_delay: 5, // NEW: default delay in seconds
 };
 
 // Define radio options for each radio question
@@ -62,9 +63,8 @@ const RADIO_OPTIONS = {
     ],
     overall_satisfaction: ["1", "2", "3", "4", "5"]
 };
-
 const QUESTIONS = Object.entries(DEFAULT_SETTINGS)
-    .filter(([key]) => key !== "auto_submit")
+    .filter(([key]) => key !== "auto_submit" && key !== "auto_submit_delay")
     .map(([key, value]) => ({
         key,
         label: key.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase()),
@@ -110,7 +110,6 @@ function createForm(saved = {}) {
         }
     });
 
-    // Add auto-submit toggle styled as custom switch using style.css classes
     const autoDiv = document.createElement("div");
     autoDiv.className = "toggle-wrapper";
     const autoLabel = document.createElement("span");
@@ -123,7 +122,6 @@ function createForm(saved = {}) {
     autoToggle.className = "auto-submit-toggle";
     autoToggle.checked = saved.auto_submit ?? DEFAULT_SETTINGS.auto_submit;
 
-    // Place label on left, switch on right
     autoDiv.appendChild(autoLabel);
     autoDiv.appendChild(autoToggle);
     container.appendChild(autoDiv);
@@ -134,6 +132,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("save").addEventListener("click", () => {
         const data = {};
+                data["auto_submit"] = document.getElementById("auto_submit").checked;
+
+        const delayEl = document.getElementById("auto_submit_delay");
+        if (delayEl) {
+            const parsed = parseInt(delayEl.value, 10);
+            data["auto_submit_delay"] = Number.isFinite(parsed) && parsed >= 1 && parsed <= 60 ? parsed : DEFAULT_SETTINGS.auto_submit_delay;
+        } else {
+            data["auto_submit_delay"] = DEFAULT_SETTINGS.auto_submit_delay;
+        }
         QUESTIONS.forEach(q => {
             if (q.type === "radio") {
                 const checked = document.querySelector(`input[name="${q.key}"]:checked`);
@@ -143,8 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 data[q.key] = input.value;
             }
         });
-        // Save auto_submit toggle
-        data["auto_submit"] = document.getElementById("auto_submit").checked;
+
 
         chrome.storage.sync.set(data, () => {
             document.getElementById("status").textContent = "Settings saved!";
