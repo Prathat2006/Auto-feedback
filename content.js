@@ -23,7 +23,7 @@ chrome.storage.sync.get(null, settings => {
     { key: "ai_support", pattern: /support would help.*AI tools/i },
     { key: "liked_most", pattern: /what did you like the most/i },
     { key: "next_week", pattern: /could be improved for next week/i },
-    { key: "comments", pattern: /additional comments or suggestions/i }
+    { key: "comments", pattern: /anything overall about the program/i }
   ];
 
   // Map course keywords to session option labels
